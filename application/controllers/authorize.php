@@ -8,13 +8,15 @@ class Authorize extends CI_Controller {
     		$this->load->library('form_validation');
 			$this->load->model('user');
 			$this->load->model('user_model');
+			$this->load->helper('url');
 	    	session_start();
     }
 
-	public function index()
-	{
+	
+	public function registerPage(){
 		$this->load->view('login_register_page');
 	}
+
 	
 	public function register(){
 		$this->form_validation->set_rules('username', 'Username', 'required');

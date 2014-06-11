@@ -12,6 +12,7 @@
 <body>  
 	<h1>New Account</h1>
 <?php 
+
 	echo form_open('authorize/register');
 
 	echo form_label('Username'); 
