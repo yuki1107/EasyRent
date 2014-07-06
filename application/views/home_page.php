@@ -17,31 +17,7 @@
 </head>
 
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Easy Rent</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-            <?php echo anchor('authorize/registerPage', 'Register', array('class'=>'btn btn-success'))?>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
+	<?=$this->load->view("Template/header")?>
     
     <div class="container"  style="margin-top:250px;>
       <!-- Example row of columns -->
@@ -55,15 +31,7 @@
         <div class="col-md-4">
         	<?php echo anchor('base/needRoomatePage', '<img src="'.base_url().'/abc.gif" class="circleLink"/>')?>            
         </div>
-      </div>
-              
-<center>
-      <footer class="navbar-fixed-bottom">
-      	<hr>
-		<p>© easyrent.ca 2014</p>
-      	</footer>
-</center>
-   </div>
+      </div> <!--row-->
+	</div> <!--container-->
 
-</body>
-</html>
+<?=$this->load->view('Template/footer')?>

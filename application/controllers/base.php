@@ -11,7 +11,8 @@ class Base extends CI_Controller {
 			$this->load->helper('url');
 	    	session_start();
     }
-
+	
+	
 	public function index()
 	{
 		$this->load->view('home_page');

@@ -8,7 +8,7 @@ class Authorize extends CI_Controller {
     		$this->load->library('form_validation');
 			$this->load->model('user');
 			$this->load->model('user_model');
-			$this->load->helper('url');
+			$this->load->helper(array('form','url'));
 	    	session_start();
     }
 
@@ -19,11 +19,12 @@ class Authorize extends CI_Controller {
 
 	
 	public function register(){
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[20]|matches[passconf]');
+		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[6]|max_length[20]');
 		$this->form_validation->set_rules('first', 'First', "required");
 		$this->form_validation->set_rules('last', 'last', "required");
-		$this->form_validation->set_rules('email', 'Email', "required");
+		$this->form_validation->set_rules('email', 'Email', "required|is_unique[users.email]|valid_email");
 		$this->form_validation->set_rules('phone', 'Phone', NULL);
 		
 	
@@ -43,10 +44,46 @@ class Authorize extends CI_Controller {
 			
 			$error = $this->user_model->insert($user);
 			
-			$this->load->view('login_register_page');
+			$this->load->view('home_page');
 		}	
 	}
-
+	
+	public function login(){
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('home_page');
+		}
+		else  
+		{
+			
+			$username = $this->input->post('username');
+			$enterPwd = $this->input->post('password');
+			
+			$user = $this->user_model->read($username);
+			if(isset($user) && $user->comparePassword($enterPwd)){
+				$_SESSION['user'] = $user;				
+				redirect('base/index');
+			}else{
+				$errMsg = "Incorrect User Name or Password!";
+				$this->load->view('home_page', $errMsg);
+			}
+		}
+	}
+	
+	public function comparePassword($password, $user){
+		if(isset($password) && isset($user) && $user->password == $password){
+			return true;
+		}else{
+			return false;
+		}		
+	}
+	
+	public function logout(){
+		unset($_SESSION['user']);
+		redirect('base\index');
+	}
 }
 
 /* End of file welcome.php */

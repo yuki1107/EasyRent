@@ -8,4 +8,8 @@ class User  {
 	public $email;	
 	public $phone;
 	public $username;
+	
+	public function comparePassword($enterPassword){
+		return ($enterPassword == $this->password);
+	}	
 }

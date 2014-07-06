@@ -3,21 +3,48 @@
 
 <html>
 	<head>
+<link href="<?= base_url()?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 			input {
 				display: block;
 			}
+			.pass1{
+				
+			}			
 		</style>
-	</head> 
-<body>  
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+			function checkPassword() {
+				var p1 = $("#pass1"); 
+				var p2 = $("#pass2");
+				
+				if (p1.val() == p2.val()) {
+					p1.get(0).setCustomValidity("");  // All is well, clear error message
+					return true;
+				}	
+				else	 {
+					p1.get(0).setCustomValidity("Passwords do not match =(");
+					return false;
+				}
+			}
+		</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head> 
+    
+<body> 
+<?=$this->load->view('Template/header') ?>
+<div class="container" style="margin-top:60px;>
+      <div class="row">
 	<h1>New Account</h1>
+	
 <?php 
-
-	echo form_open('authorize/register');
+echo form_open('authorize/register', "class='form-group has-success'");
 
 	echo form_label('Username'); 
 	echo form_error('username');
-	echo form_input('username',set_value('username'),"required");
+	//echo form_input('username',set_value('username'),"class='form-control'","required");
+	$data = array('name' => 'username', 'class'=>'form-control','required'=>'required');
+	echo form_input($data);
+		// set_value: for failture, it save the username you wrote on your screen
 
 	echo form_label('Password'); 
 	echo form_error('password');
@@ -25,7 +52,7 @@
 
 	echo form_label('Password Confirmation'); 
 	echo form_error('passconf');
-	echo form_password('passconf','',"id='pass2' required");
+	echo form_password('passconf','',"id='pass2' required oninput='checkPassword();'");
 
 	echo form_label('First');
 	echo form_error('first');
@@ -46,7 +73,7 @@
 	echo form_submit('submit', 'Register');
 	echo form_close();
 ?>	
-</body>
-
-</html>
+</div><!--row-->
+</div><!--container-->
+<?= $this->load->view('Template/footer')?>
 
