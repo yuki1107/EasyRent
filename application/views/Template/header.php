@@ -28,6 +28,7 @@
 				echo anchor('authorize/logout', 'Log Out', array('class'=>'btn btn-success'));
 				echo "</div>";
 			}		
+
 		?>
         </div><!--/.navbar-collapse -->
       </div><!--container-->

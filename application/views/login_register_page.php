@@ -11,6 +11,7 @@
 			.pass1{
 				
 			}			
+
 		</style>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script>
@@ -33,6 +34,7 @@
 <body> 
 <?=$this->load->view('Template/header') ?>
 <div class="container" style="margin-top:60px;>
+
       <div class="row">
 	<h1>New Account</h1>
 	
@@ -76,4 +78,5 @@ echo form_open('authorize/register', "class='form-group has-success'");
 </div><!--row-->
 </div><!--container-->
 <?= $this->load->view('Template/footer')?>
+
 

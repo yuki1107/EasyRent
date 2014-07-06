@@ -84,6 +84,7 @@ class Authorize extends CI_Controller {
 		unset($_SESSION['user']);
 		redirect('base\index');
 	}
+
 }
 
 /* End of file welcome.php */
