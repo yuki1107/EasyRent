@@ -8,7 +8,7 @@ class Authorize extends CI_Controller {
     		$this->load->library('form_validation');
 			$this->load->model('user');
 			$this->load->model('user_model');
-			$this->load->helper('url');
+			$this->load->helper(array('form','url'));
 	    	session_start();
     }
 
@@ -19,11 +19,12 @@ class Authorize extends CI_Controller {
 
 	
 	public function register(){
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[20]|matches[passconf]');
+		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[6]|max_length[20]');
 		$this->form_validation->set_rules('first', 'First', "required");
 		$this->form_validation->set_rules('last', 'last', "required");
-		$this->form_validation->set_rules('email', 'Email', "required");
+		$this->form_validation->set_rules('email', 'Email', "required|is_unique[users.email]|valid_email");
 		$this->form_validation->set_rules('phone', 'Phone', NULL);
 		
 	
@@ -45,6 +46,36 @@ class Authorize extends CI_Controller {
 			
 			$this->load->view('login_register_page');
 		}	
+	}
+	
+	public function login(){
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('home_page');
+		}
+		else  
+		{
+			
+			$username = $this->input->post('username');
+			$enterPwd = $this->input->post('password');
+			
+			$user = $this->user_model->read($username);
+			if(count($user)==0){
+				$userPwd = "sdd";			
+			}else{
+				$userPwd = $user->password;
+			}
+			
+			if ($userPwd == $enterPwd){
+				echo '<script> alert("login in success!") </script>';
+			}
+			else{
+				echo '<script> alert("login fail!") </script>';
+				$this->load->view('home_page');
+			}
+		}
 	}
 
 }
