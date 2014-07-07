@@ -3,7 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Easy Rent</title>
-<link href="<?= base_url()?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="<?= base_url()?>js/jquery.min.js"></script>
+<script src="<?= base_url()?>bootstrap/js/bootstrap.min.js"></script>
+<script src="<?= base_url()?>js/bootbox.min.js"></script>
+<link href="<?= base_url()?>bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		.circleLink{
 			width:280px; 
@@ -18,7 +21,6 @@
 
 <body>
 	<?=$this->load->view("Template/header")?>
-    
     <div class="container"  style="margin-top:250px;>
       <!-- Example row of columns -->
       <div class="row">

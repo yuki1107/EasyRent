@@ -62,22 +62,15 @@ class Authorize extends CI_Controller {
 			$enterPwd = $this->input->post('password');
 			
 			$user = $this->user_model->read($username);
-			if(isset($user) && $user->comparePassword($enterPwd)){
+			if(isset($user) && !empty($user) && $user->comparePassword($enterPwd)){
 				$_SESSION['user'] = $user;				
 				redirect('base/index');
 			}else{
 				$errMsg = "Incorrect User Name or Password!";
-				$this->load->view('home_page', $errMsg);
-			}
+				$_SESSION['errMsg'] = $errMsg;				
+				$this->load->view('home_page'); //Should load the "login/register page"
+ 			}
 		}
-	}
-	
-	public function comparePassword($password, $user){
-		if(isset($password) && isset($user) && $user->password == $password){
-			return true;
-		}else{
-			return false;
-		}		
 	}
 	
 	public function logout(){
