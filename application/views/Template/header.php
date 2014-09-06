@@ -10,7 +10,7 @@
 		<?php echo anchor('base/index', 'Easy Rent', array('class'=>'navbar-brand'));?>
         </div>
         <div class="navbar-collapse collapse">
-            <?php 
+            <?php 			
 			if(!isset($_SESSION['user'])){
 				echo form_open('authorize/login', "class='navbar-form navbar-right' role='form'");
 				echo form_input('username',set_value('username'), "class=form-control placeholder='Username'", "required");
@@ -21,6 +21,7 @@
 				echo " ";
 				echo anchor('authorize/registerPage', 'Register', array('class'=>'btn btn-success'));
 				echo form_close();
+		
 			}else{
 				$user = $_SESSION['user'];
 				echo "<div class='navbar-form navbar-right'>";
@@ -28,8 +29,28 @@
 				echo anchor('authorize/logout', 'Log Out', array('class'=>'btn btn-success'));
 				echo "</div>";
 			}		
-
 		?>
         </div><!--/.navbar-collapse -->
+
       </div><!--container-->
+	<?php 
+			if(isset($_SESSION['errMsg'])){
+				echo '<script type="text/javascript">(function(){
+				bootbox.dialog({
+					  message: "' . $_SESSION['errMsg']. '",
+					   buttons: {
+						danger: {
+						  label: "OK",
+						  className: "btn-danger"
+						}
+					}
+				});})();
+				</script>'; 					
+//				bootbox.alert("' . $_SESSION['errMsg'] .'")})();
+	//			echo '<div class="alert alert-danger" style="text-align:center" role="alert">' . $_SESSION['errMsg'] .'</div>';
+				unset($_SESSION['errMsg']);
+			}				
+	?>	
     </div><!--navbar-->
+		
+		
